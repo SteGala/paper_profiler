@@ -1,14 +1,36 @@
+set arrow from 17, graph 0 to 17, graph 1 nohead lt 0 lw 2
+set arrow from 26, graph 0 to 26, graph 1 nohead lt 0 lw 2
+set arrow from 43, graph 0 to 43, graph 1 nohead lt 0 lw 2
+set term png size 800, 600
+
+# -------------------------------------
+# Workload plot
+# -------------------------------------
+
+set xrange [0:56]
+set yrange [0:1200]
+set title "Applied workload"
+set ylabel "Users"
+set xlabel "Time (minutes)"
+
+plot 'Users' using 1:2 with lines title 'workload' lw 2
+
+set term png
+set output "./img/Workload.png"
+replot
+#set term x11
+
+
+# -------------------------------------
 # set parameters common to every graph
+# -------------------------------------
 set boxwidth 1.5
 set y2range [0:2000]
 set y2tics 0, 200
 set ytics nomirror
 set y2label "Users"
 set xlabel "Time (minutes)"
-set arrow from 17, graph 0 to 17, graph 1 nohead lt 0 lw 2
-set arrow from 26, graph 0 to 26, graph 1 nohead lt 0 lw 2
-set arrow from 43, graph 0 to 43, graph 1 nohead lt 0 lw 2
-set term png size 800, 600
+
 
 # -------------------------------------
 # CPU limits plot
@@ -31,9 +53,10 @@ plot 'CPU Limits' using ($1-3):4:3:2:4 notitle with candlesticks lt -1 lw 2, \
 '' using ($1+3):16 title 'profiling' with boxes fill pattern 5, \
 'Users' using 1:2 axis x1y2 with lines title 'workload' lw 2
 
-set output "CPU limits.png"
+set term png
+set output "./img/CPU limits.png"
 replot
-set term x11
+#set term x11
 
 # -------------------------------------
 # CPU requests plot
@@ -57,9 +80,9 @@ plot 'CPU request' using ($1-3):4:3:2:4 notitle with candlesticks lt -1 lw 2, \
 'Users' using 1:2 axis x1y2 with lines title 'workload' lw 2
 
 set term png
-set output "CPU requests.png"
+set output "./img/CPU requests.png"
 replot
-set term x11
+#set term x11
 
 # -------------------------------------
 # RPS plot
@@ -83,9 +106,9 @@ plot 'Requests per second' using ($1-3):4:3:2:4 notitle with candlesticks lt -1 
 'Users' using 1:2 axis x1y2 with lines title 'workload' lw 2
 
 set term png
-set output "Requests per second.png"
+set output "./img/Requests per second.png"
 replot
-set term x11
+#set term x11
 
 # -------------------------------------
 # Response time P50 plot
@@ -105,9 +128,9 @@ plot 'Response time p50' using ($1-1.5):4:3:2:4 notitle with candlesticks lt -1 
 'Users' using 1:2 axis x1y2 with lines title 'workload' lw 2
 
 set term png
-set output "Response time P50.png"
+set output "./img/Response time P50.png"
 replot
-set term x11
+#set term x11
 
 
 # -------------------------------------
@@ -128,6 +151,6 @@ plot 'Response time p95' using ($1-1.5):4:3:2:4 notitle with candlesticks lt -1 
 'Users' using 1:2 axis x1y2 with lines title 'workload' lw 2
 
 set term png
-set output "Response time P95.png"
+set output "./img/Response time P95.png"
 replot
-set term x11
+#set term x11
