@@ -1,7 +1,7 @@
 set arrow from 17, graph 0 to 17, graph 1 nohead lt 0 lw 2
 set arrow from 26, graph 0 to 26, graph 1 nohead lt 0 lw 2
 set arrow from 43, graph 0 to 43, graph 1 nohead lt 0 lw 2
-set term png size 800, 600
+set term png size 800, 300
 
 # -------------------------------------
 # Workload plot
