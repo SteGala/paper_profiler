@@ -59,15 +59,15 @@ replot
 # -------------------------------------
 
 set xrange [0:56]
-set yrange [0:12]
+set yrange [0:13]
 #set title "CPU Limits"
 set ylabel "CPU core"
 
 plot 'CPU Limits' using ($1-1):6 title 'vpa' with boxes fill pattern 6 lt rgb "green", \
 '' using ($1-1):6:5:4:6 notitle with candlesticks lt -1 lw 2, \
-'' using ($1+1):12 title 'hpa' with boxes fill pattern 4 lt rgb "blue", \
+'' using ($1+1):9 title 'hpa' with boxes fill pattern 4 lt rgb "blue", \
 '' using ($1+1):9:8:7:9 notitle with candlesticks lt -1 lw 2, \
-'' using ($1+3):18 title 'profiler' with boxes fill pattern 5 lt rgb "red", \
+'' using ($1+3):12 title 'profiler' with boxes fill pattern 5 lt rgb "red", \
 '' using ($1+3):12:11:10:12 notitle with candlesticks lt -1 lw 2, \
 'Users' using 1:2 axis x1y2 with lines title 'workload' lw 1 lt rgb "blue"
 
