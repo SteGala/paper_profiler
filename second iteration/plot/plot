@@ -1,0 +1,217 @@
+set arrow from 17, graph 0 to 17, graph 1 nohead lt 0 lw 2
+set arrow from 26, graph 0 to 26, graph 1 nohead lt 0 lw 2
+set arrow from 43, graph 0 to 43, graph 1 nohead lt 0 lw 2
+set term png size 800, 330
+
+
+# -------------------------------------
+# set parameters common to every graph
+# -------------------------------------
+set boxwidth 2
+set y2range [1000:3000]
+set y2tics 0, 500
+set ytics nomirror
+set y2label "Users"
+set xlabel "Time (minutes)"
+
+
+# -------------------------------------
+# Success Rate
+# -------------------------------------
+
+set xrange [0:56]
+set yrange [0.85:1.05]
+set ylabel "Success Rate (%)"
+set key above
+
+plot 'Success rate' using ($1-2):2 title 'vpa' with boxes fill pattern 6 lt rgb "green", \
+'' using ($1):3 title 'hpa' with boxes fill pattern 4 lt rgb "blue", \
+'' using ($1+2):4 title 'profiler' with boxes fill pattern 5 lt rgb "red", \
+'Users' using 1:2 axis x1y2 with lines title 'workload' lw 1 lt rgb "blue"
+
+set term png
+set output "./img/Success rate.png"
+replot
+#set term x11
+
+
+# -------------------------------------
+# RPS plot
+# -------------------------------------
+set xrange [0:56]
+set yrange [0.85:1.05]
+#set title "Requests per second (RPS)"
+set ylabel "Responses ratio"
+
+plot 'Requests per second' using ($1-2):7 title 'vpa' with boxes fill pattern 6 lt rgb "green", \
+'' using ($1):13 title 'hpa' with boxes fill pattern 4 lt rgb "blue", \
+'' using ($1+2):19 title 'profiler' with boxes fill pattern 5 lt rgb "red", \
+'Users' using 1:2 axis x1y2 with lines title 'workload' lw 1 lt rgb "blue"
+
+set term png
+set output "./img/Requests per second.png"
+replot
+#set term x11
+
+
+# -------------------------------------
+# CPU limits plot
+# -------------------------------------
+
+set xrange [0:56]
+set yrange [0:12]
+#set title "CPU Limits"
+set ylabel "CPU core"
+
+plot 'CPU Limits' using ($1-1):6 title 'vpa' with boxes fill pattern 6 lt rgb "green", \
+'' using ($1-1):6:5:4:6 notitle with candlesticks lt -1 lw 2, \
+'' using ($1+1):12 title 'hpa' with boxes fill pattern 4 lt rgb "blue", \
+'' using ($1+1):9:8:7:9 notitle with candlesticks lt -1 lw 2, \
+'' using ($1+3):18 title 'profiler' with boxes fill pattern 5 lt rgb "red", \
+'' using ($1+3):12:11:10:12 notitle with candlesticks lt -1 lw 2, \
+'Users' using 1:2 axis x1y2 with lines title 'workload' lw 1 lt rgb "blue"
+
+set term png
+set output "./img/CPU limits.png"
+replot
+#set term x11
+
+
+## -------------------------------------
+## CPU requests plot
+## -------------------------------------
+#
+#set xrange [0:56]
+#set yrange [0:3.5]
+##set title "CPU Requests"
+#set ylabel "CPU core"
+#
+#plot 'CPU request' using ($1-3):4 title 'hpa' with boxes fill pattern 2 lt rgb "violet", \
+#'' using ($1-3):4:3:2:4 notitle with candlesticks lt -1 lw 2, \
+#'' using ($1-1):7 title 'vpa no knowledge' with boxes fill pattern 6 lt rgb "green", \
+#'' using ($1-1):7:6:5:7 notitle with candlesticks lt -1 lw 2, \
+#'' using ($1+1):10 title 'vpa knowledge' with boxes fill pattern 4 lt rgb "blue", \
+#'' using ($1+1):10:9:8:10 notitle with candlesticks lt -1 lw 2, \
+#'' using ($1+3):13 title 'profiler' with boxes fill pattern 5 lt rgb "red", \
+#'' using ($1+3):13:12:11:13 notitle with candlesticks lt -1 lw 2, \
+#'Users' using 1:2 axis x1y2 with lines title 'workload' lw 1 lt rgb "blue"
+#
+#set term png
+#set output "./img/CPU requests.png"
+#replot
+##set term x11
+#
+#
+## -------------------------------------
+## Request per core on Requests plot
+## -------------------------------------
+#
+#set xrange [0:56]
+#set yrange [0:135]
+##set title "Requests per core on Requests (RPC)"
+#set ylabel "Requests per core"
+#
+#plot 'Request per core on Requests' using ($1-2):4 title 'hpa' with boxes fill pattern 2 lt rgb "violet", \
+#'' using ($1-2):4:3:2:4 notitle with candlesticks lt -1 lw 2, \
+#'' using ($1):10 title 'vpa knowledge' with boxes fill pattern 4 lt rgb "blue", \
+#'' using ($1):10:9:8:10 notitle with candlesticks lt -1 lw 2, \
+#'' using ($1+2):13 title 'profiler' with boxes fill pattern 5 lt rgb "red", \
+#'' using ($1+2):13:12:11:13 notitle with candlesticks lt -1 lw 2, \
+#'Users' using 1:2 axis x1y2 with lines title 'workload' lw 1 lt rgb "blue"
+#
+#set term png
+#set output "./img/Requests per core on Requests.png"
+#replot
+##set term x11
+#
+## -------------------------------------
+## Request per core on Limits plot
+## -------------------------------------
+#
+#set xrange [0:56]
+#set yrange [0:75]
+##set title "Requests per core on Limits (RPC)"
+#set ylabel "Requests per core"
+#
+#plot 'Request per core on Limits' using ($1-2):4 title 'hpa' with boxes fill pattern 2 lt rgb "violet", \
+#'' using ($1-2):4:3:2:4 notitle with candlesticks lt -1 lw 2, \
+#'' using ($1):10 title 'vpa knowledge' with boxes fill pattern 4 lt rgb "blue", \
+#'' using ($1):10:9:8:10 notitle with candlesticks lt -1 lw 2, \
+#'' using ($1+2):13 title 'profiler' with boxes fill pattern 5 lt rgb "red", \
+#'' using ($1+2):13:12:11:13 notitle with candlesticks lt -1 lw 2, \
+#'Users' using 1:2 axis x1y2 with lines title 'workload' lw 1 lt rgb "blue"
+#
+#set term png
+#set output "./img/Requests per core on Limits.png"
+#replot
+##set term x11
+#
+## -------------------------------------
+## Response time P50 plot
+## -------------------------------------
+#
+#set xrange [0:56]
+#set yrange [0:5500]
+##set title "Response time P50"
+#set ylabel "Response time"
+#
+#plot 'Response time p50' using ($1-2):4 title 'hpa' with boxes fill pattern 2 lt rgb "violet", \
+#'' using ($1-2):4:3:2:4 notitle with candlesticks lt -1 lw 2, \
+#'' using ($1):10 title 'vpa knowledge' with boxes fill pattern 4 lt rgb "blue", \
+#'' using ($1):10:9:8:10 notitle with candlesticks lt -1 lw 2, \
+#'' using ($1+2):13 title 'profiler' with boxes fill pattern 5 lt rgb "red", \
+#'' using ($1+2):13:12:11:13 notitle with candlesticks lt -1 lw 2, \
+#'Users' using 1:2 axis x1y2 with lines title 'workload' lw 1 lt rgb "blue"
+#
+#set term png
+#set output "./img/Response time P50.png"
+#replot
+##set term x11
+#
+#
+## -------------------------------------
+## Response time P95 plot
+## -------------------------------------
+#
+#set xrange [0:56]
+#set yrange [0:8000]
+##set title "Response time P95"
+#set ylabel "Response time"
+#
+#plot 'Response time p95' using ($1-2):4 title 'hpa' with boxes fill pattern 2 lt rgb "violet", \
+#'' using ($1-2):4:3:2:4 notitle with candlesticks lt -1 lw 2, \
+#'' using ($1):10 title 'vpa knowledge' with boxes fill pattern 4 lt rgb "blue", \
+#'' using ($1):10:9:8:10 notitle with candlesticks lt -1 lw 2, \
+#'' using ($1+2):13 title 'profiler' with boxes fill pattern 5 lt rgb "red", \
+#'' using ($1+2):13:12:11:13 notitle with candlesticks lt -1 lw 2, \
+#'Users' using 1:2 axis x1y2 with lines title 'workload' lw 1 lt rgb "blue"
+#
+#set term png
+#set output "./img/Response time P95.png"
+#replot
+##set term x11
+#
+#
+## -------------------------------------
+## Response time P95 boxplot
+## -------------------------------------
+#
+#set xrange [0:56]
+#set yrange [0:4200]
+##set title "Response time P95"
+#set ylabel "Response time"
+#set boxwidth 1.9
+#
+#plot 'Response time p95 boxplot' using ($1-2):3:2:6:5 with candlesticks title 'hpa' whiskerbars fill pattern 2 lt rgb "violet", \
+#'' using ($1-2):4:4:4:4 notitle with candlesticks lt -1 lw 2, \
+#'' using ($1):8:7:11:10 with candlesticks title 'vpa knowledge' whiskerbars fill pattern 4 lt rgb "blue", \
+#'' using ($1):9:9:9:9 notitle with candlesticks lt -1  lw 2, \
+#'' using ($1+2):13:12:16:15 with candlesticks title 'profiler' whiskerbars fill pattern 5 lt rgb "red", \
+#'' using ($1+2):14:14:14:14 notitle with candlesticks lt -1  lw 2, \
+#'Users' using 1:2 axis x1y2 with lines title 'workload' lw 1 lt rgb "blue"
+#
+#set term png
+#set output "./img/Response time P95 boxplot.png"
+#replot
+##set term x11
+#
