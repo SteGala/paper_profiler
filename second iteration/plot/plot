@@ -69,7 +69,7 @@ replot
 # RPS plot
 # -------------------------------------
 set xrange [0:56]
-set yrange [0.85:1]
+set yrange [0.85:1.02]
 #set title "Requests per second (RPS)"
 set ylabel "Responses ratio"
 
