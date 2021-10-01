@@ -1,15 +1,12 @@
-#mettere le serie temporali maiuscole e cambiare RAYGO in RAYGOo, aumentando il font, nella legenda dell'asse x eliminare la dicitura minutes, rendere le 4 fasi possibilmente della stessa dimensione 
-#nel profiling mettere la griglia nel grafico, le percentuali nel grafico rapprsentarle come 90% e non 0.9, partire da 90% invece di 93% e finire poco prima del 1.01
-
-
-# -------------------------------------
+#--------------------------------------
 # Profiling 
 # -------------------------------------
-set style line 1 lc rgb 'red' pt 5   # square
-set style line 2 lc rgb 'green' pt 7   # circle
-set style line 3 lc rgb 'blue' pt 9   # triangle
-set style line 4 lc rgb 'black' pt 11
-set style line 5 lc rgb 'blue' pt 8 # triangle empty
+set style line 1 lc rgb 'red' pt 5 lw 3  # square
+set style line 2 lc rgb 'green' pt 7 lw 3  # circle
+set style line 3 lc rgb 'blue' pt 9 lw 3  # triangle
+set style line 4 lc rgb 'black' pt 11 lw 3
+set style line 5 lc rgb 'blue' pt 8 lw 3# triangle empty
+set style line 6 lc rgb 'orange' pt 10 lw 3# triangle empty
 
 set xrange [0:1600]
 set term postscript eps color size 3.5,2.5 font 22
@@ -63,7 +60,8 @@ set output "./img/Success rate.ps"
 plot 'Success rate' using ($1-3):2 title 'VPA' w p ls 1 ps 2, \
 '' using ($1-1):3 title 'HPA' w p ls 2 ps 2, \
 '' using ($1+1):5 title ' RAYGO (HDP)' w p ls 5 ps 2, \
-'' using ($1+3):4 title ' RAYGO (HDP+EDP)' w p ls 3 ps 2, \
+'' using ($1+3):6 title ' RAYGO (HDP+EDP single)' w p ls 4 ps 2, \
+'' using ($1+5):4 title ' RAYGO (HDP+EDP app)' w p ls 3 ps 2, \
 'Users' using 1:2 axis x1y2 with lines title 'workload' lw 1 lt rgb "blue"
 
 
@@ -71,7 +69,6 @@ plot 'Success rate' using ($1-3):2 title 'VPA' w p ls 1 ps 2, \
 # RPS plot
 # -------------------------------------
 set yrange [200:450]
-#set title "Requests per second (RPS)"
 set ylabel "Successful responses"
 set output "./img/Requests per second.ps"
 
@@ -79,7 +76,8 @@ plot 'Requests per second' using ($1-4):25 title 'UNCONSTRAINED' w p ls 4 ps 2, 
 '' using ($1-2):7 title 'VPA' w p ls 1 ps 2, \
 '' using ($1):13 title 'HPA' w p ls 2 ps 2, \
 '' using ($1+2):31 title ' RAYGO (HDP)' w p ls 5 ps 2, \
-'' using ($1+4):19 title ' RAYGO (HDP+EDP)' w p ls 3 ps 2, \
+'' using ($1+4):37 title ' RAYGO (HDP+EDP single)' w p ls 6 ps 2, \
+'' using ($1+6):19 title ' RAYGO (HDP+EDP app)' w p ls 3 ps 2, \
 'Users' using 1:2 axis x1y2 with lines title 'workload' lw 1 lt rgb "blue"
 
 # -------------------------------------
@@ -87,7 +85,6 @@ plot 'Requests per second' using ($1-4):25 title 'UNCONSTRAINED' w p ls 4 ps 2, 
 # -------------------------------------
 
 set yrange [0:13]
-#set title "CPU Limits"
 set ylabel "CPU cores"
 set output "./img/CPU limits.ps"
 
@@ -98,8 +95,10 @@ plot 'CPU Limits' using ($1-3):7 title 'VPA' with boxes fill pattern 6 lt rgb "g
 '' using ($1-1):13:8:12:13 notitle with candlesticks lt -1 lw 2, \
 '' using ($1+1):25 title ' RAYGO (HDP)' with boxes fill pattern 9 lt rgb "orange", \
 '' using ($1+1):25:20:24:25 notitle with candlesticks lt -1 lw 2, \
-'' using ($1+3):19 title ' RAYGO (HDP+EDP)' with boxes fill pattern 5 lt rgb "red", \
-'' using ($1+3):19:14:18:19 notitle with candlesticks lt -1 lw 2, \
+'' using ($1+3):31 title ' RAYGO (HDP+EDP single)' with boxes fill pattern 10 lt rgb "black", \
+'' using ($1+3):31:26:30:31 notitle with candlesticks lt -1 lw 2, \
+'' using ($1+5):19 title ' RAYGO (HDP+EDP app)' with boxes fill pattern 5 lt rgb "red", \
+'' using ($1+5):19:14:18:19 notitle with candlesticks lt -1 lw 2, \
 'Users' using 1:2 axis x1y2 with lines title 'workload' lw 1 lt rgb "blue"
 
 
@@ -108,7 +107,6 @@ plot 'CPU Limits' using ($1-3):7 title 'VPA' with boxes fill pattern 6 lt rgb "g
 # -------------------------------------
 
 set yrange [0:6.5]
-#set title "CPU Requests"
 set ylabel "CPU cores"
 set output "./img/CPU requests.ps"
 
@@ -118,8 +116,10 @@ plot 'CPU request' using ($1-3):7 title 'VPA' with boxes fill pattern 6 lt rgb "
 '' using ($1-1):13:8:12:13 notitle with candlesticks lt -1 lw 2, \
 '' using ($1+1):25 title ' RAYGO (HDP)' with boxes fill pattern 9 lt rgb "orange", \
 '' using ($1+1):25:20:24:25 notitle with candlesticks lt -1 lw 2, \
-'' using ($1+3):19 title ' RAYGO (HDP+EDP)' with boxes fill pattern 5 lt rgb "red", \
-'' using ($1+3):19:14:18:19 notitle with candlesticks lt -1 lw 2, \
+'' using ($1+3):31 title ' RAYGO (HDP+EDP single)' with boxes fill pattern 10 lt rgb "black", \
+'' using ($1+3):31:26:30:31 notitle with candlesticks lt -1 lw 2, \
+'' using ($1+5):19 title ' RAYGO (HDP+EDP app)' with boxes fill pattern 5 lt rgb "red", \
+'' using ($1+5):19:14:18:19 notitle with candlesticks lt -1 lw 2, \
 'Users' using 1:2 axis x1y2 with lines title 'workload' lw 1 lt rgb "blue"
 
 
@@ -128,7 +128,6 @@ plot 'CPU request' using ($1-3):7 title 'VPA' with boxes fill pattern 6 lt rgb "
 # -------------------------------------
 
 set yrange [0:200]
-#set title "Requests per core on Requests (RPC)"
 set ylabel "Requests per core"
 set output "./img/Requests per core on Requests.ps"
 
@@ -138,8 +137,10 @@ plot 'Request per core on Requests' using ($1-3):7 title 'VPA' with boxes fill p
 '' using ($1-1):13:8:12:13 notitle with candlesticks lt -1 lw 2, \
 '' using ($1+1):25 title ' RAYGO (HDP)' with boxes fill pattern 9 lt rgb "orange", \
 '' using ($1+1):25:20:24:25 notitle with candlesticks lt -1 lw 2, \
-'' using ($1+3):19 title ' RAYGO (HDP+EDP)' with boxes fill pattern 5 lt rgb "red", \
-'' using ($1+3):19:14:18:19 notitle with candlesticks lt -1 lw 2, \
+'' using ($1+3):31 title ' RAYGO (HDP+EDP single)' with boxes fill pattern 10 lt rgb "black", \
+'' using ($1+3):31:26:30:31 notitle with candlesticks lt -1 lw 2, \
+'' using ($1+5):19 title ' RAYGO (HDP+EDP app)' with boxes fill pattern 5 lt rgb "red", \
+'' using ($1+5):19:14:18:19 notitle with candlesticks lt -1 lw 2, \
 'Users' using 1:2 axis x1y2 with lines title 'workload' lw 1 lt rgb "blue"
 
 
@@ -148,7 +149,6 @@ plot 'Request per core on Requests' using ($1-3):7 title 'VPA' with boxes fill p
 # -------------------------------------
 
 set yrange [0:90]
-#set title "Requests per core on Limits (RPC)"
 set ylabel "Requests per core"
 set output "./img/Requests per core on Limits.ps"
 
@@ -163,34 +163,11 @@ plot 'Request per core on Limits' using ($1-3):7 title 'VPA' with boxes fill pat
 'Users' using 1:2 axis x1y2 with lines title 'workload' lw 1 lt rgb "blue"
 
 
-## -------------------------------------
-## Response time P95 plot
-## -------------------------------------
-#
-#set yrange [0:8000]
-##set title "Response time P95"
-#set ylabel "Response time"
-#
-#plot 'Response time p95' using ($1-2):4 title 'HPA' with boxes fill pattern 2 lt rgb "violet", \
-#'' using ($1-2):4:3:2:4 notitle with candlesticks lt -1 lw 2, \
-#'' using ($1):10 title 'VPA knowledge' with boxes fill pattern 4 lt rgb "blue", \
-#'' using ($1):10:9:8:10 notitle with candlesticks lt -1 lw 2, \
-#'' using ($1+2):13 title ' RAYGO' with boxes fill pattern 5 lt rgb "red", \
-#'' using ($1+2):13:12:11:13 notitle with candlesticks lt -1 lw 2, \
-#'Users' using 1:2 axis x1y2 with lines title 'workload' lw 1 lt rgb "blue"
-#
-#set term png
-#set output "./img/Response time P95.ps"
-#replot
-##set term x11
-
-
 # -------------------------------------
 # Response time P95 boxplot
 # -------------------------------------
 
-set yrange [10:2700]
-#set title "Response time P95"
+set yrange [10:3000]
 set ylabel "Response time"
 set boxwidth 1.9
 set logscale y 10
@@ -202,52 +179,8 @@ plot 'Response time p95 boxplot' using ($1-3):3:2:6:5 with candlesticks title 'V
 '' using ($1-1):9:9:9:9 notitle with candlesticks lt -1  lw 2, \
 '' using ($1+1):18:17:21:20 with candlesticks title ' RAYGO (HDP)' whiskerbars fill pattern 9 lt rgb "orange", \
 '' using ($1+1):19:19:19:19 notitle with candlesticks lt -1  lw 2, \
-'' using ($1+3):13:12:16:15 with candlesticks title ' RAYGO (HDP+EDP)' whiskerbars fill pattern 5 lt rgb "red", \
-'' using ($1+3):14:14:14:14 notitle with candlesticks lt -1  lw 2, \
+'' using ($1+3):23:22:26:25 with candlesticks title ' RAYGO (HDP+EDP single)' whiskerbars fill pattern 10 lt rgb "black", \
+'' using ($1+3):24:24:24:24 notitle with candlesticks lt -1  lw 2, \
+'' using ($1+5):13:12:16:15 with candlesticks title ' RAYGO (HDP+EDP app)' whiskerbars fill pattern 5 lt rgb "red", \
+'' using ($1+5):14:14:14:14 notitle with candlesticks lt -1  lw 2, \
 'Users' using 1:2 axis x1y2 with lines title 'workload' lw 1 lt rgb "blue"
-
-
-
-
-
-
-
-
-
-
-#### OLD ####
-
-## -------------------------------------
-## RPS plot
-## -------------------------------------
-#set yrange [0.85:1.02]
-##set title "Requests per second (RPS)"
-#set ylabel "Responses ratio"
-#
-#plot 'Requests per second' using ($1-2):7 title 'VPA' with boxes fill pattern 6 lt rgb "green", \
-#'' using ($1):13 title 'HPA' with boxes fill pattern 4 lt rgb "blue", \
-#'' using ($1+2):19 title 'RAYGO' with boxes fill pattern 5 lt rgb "red", \
-#'Users' using 1:2 axis x1y2 with lines title 'workload' lw 1 lt rgb "blue"
-#
-#set term png
-#set output "./img/Requests per second.png"
-#replot
-##set term x11
-
-# -------------------------------------
-# Success Rate
-# -------------------------------------
-
-#set yrange [0.88:1.05]
-#set ylabel "Success Rate (%)"
-#set key above
-#
-#plot 'Success rate' using ($1-2):2 title 'VPA' with boxes fill pattern 6 lt rgb "green", \
-#'' using ($1):3 title 'HPA' with boxes fill pattern 4 lt rgb "blue", \
-#'' using ($1+2):4 title 'RAYGO' with boxes fill pattern 5 lt rgb "red", \
-#'Users' using 1:2 axis x1y2 with lines title 'workload' lw 1 lt rgb "blue"
-#
-#set term png
-#set output "./img/Success rate.png"
-#replot
-##set term x11
